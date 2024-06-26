@@ -19,6 +19,7 @@ class _ApiService implements ApiService {
   final Dio _dio;
 
   String? baseUrl;
+  AppPreferences preferences =getIt.get();
 
   @override
   Future<LoginResponse> login(LoginRequestBody loginRequestBody) async {
@@ -73,6 +74,35 @@ class _ApiService implements ApiService {
               baseUrl,
             ))));
     final value = SignupResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SpecializationsResponseModel> getSpecializationData() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      'Authorization': 'Bearer ${preferences.getToken()}',
+    };
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SpecializationsResponseModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'https://vcare.integration25.com/api/specialization/index',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = SpecializationsResponseModel.fromJson(_result.data!);
     return value;
   }
 
