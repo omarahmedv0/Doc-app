@@ -27,6 +27,8 @@ class LoginCubit extends Cubit<LoginState> {
     );
     response.when(success: (loginResponse) async {
       await appPreferences.saveToken(loginResponse.userData!.token!);
+      await appPreferences.setIsUserLoggedIn(true);
+
       DioFactory.reSetUserToken(loginResponse.userData!.token!);
       emit(LoginState.success(loginResponse));
     }, failure: (error) {

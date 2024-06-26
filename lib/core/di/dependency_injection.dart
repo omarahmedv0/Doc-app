@@ -5,6 +5,7 @@ import 'package:advanced_course/features/home/data/repos/home_repo.dart';
 import 'package:advanced_course/features/sign_up/data/repo/signup_repo.dart';
 import 'package:advanced_course/features/sign_up/logic/sign_up_cubit.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,11 +16,15 @@ import '../../features/login/logic/cubit/login_cubit.dart';
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
-
   final SharedPreferences preferences = await SharedPreferences.getInstance();
+  const FlutterSecureStorage storage = FlutterSecureStorage();
+
   getIt.registerLazySingleton(() => preferences);
+  getIt.registerLazySingleton(() => storage);
+
+
   getIt.registerLazySingleton<AppPreferences>(
-    () => AppPreferences(preferences),
+    () => AppPreferences(preferences,storage),
   );
 
   // Dio & ApiService
@@ -28,13 +33,12 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
   // login
   getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt()));
-  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt(),getIt.get()));
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt.get()));
 
   // signup
   getIt.registerLazySingleton<SignupRepo>(() => SignupRepo(getIt()));
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt(), getIt.get()));
 
   // Home
-    getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
-
+  getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
 }

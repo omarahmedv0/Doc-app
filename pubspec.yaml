@@ -31,6 +31,7 @@ dependencies:
   flutter_native_splash: ^2.3.11
   flutter_svg: ^2.0.10+1
   flutter_screenutil: ^5.9.3
+  flutter_secure_storage: ^4.2.1
 
 dependency_overrides:
   web: 0.3.0

@@ -35,6 +35,7 @@ class SignupCubit extends Cubit<SignupState> {
     );
     response.when(success: (signupResponse) async {
       await appPreferences.saveToken(signupResponse.userData!.token!);
+      await appPreferences.setIsUserLoggedIn(true);
       DioFactory.reSetUserToken(signupResponse.userData!.token!);
 
       emit(SignupState.signupSuccess(signupResponse));
