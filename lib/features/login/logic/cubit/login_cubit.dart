@@ -1,4 +1,5 @@
 import 'package:advanced_course/core/helpers/shared_pref_helper.dart';
+import 'package:advanced_course/core/networking/dio_factory.dart';
 import 'package:advanced_course/core/prefs/app_preferences.dart';
 import 'package:advanced_course/features/login/data/models/login_request_body.dart';
 import 'package:advanced_course/features/login/data/repos/login_repo.dart';
@@ -26,6 +27,9 @@ class LoginCubit extends Cubit<LoginState> {
     );
     response.when(success: (loginResponse) async {
       await appPreferences.saveToken(loginResponse.userData!.token!);
+      await appPreferences.setIsUserLoggedIn(true);
+
+      DioFactory.reSetUserToken(loginResponse.userData!.token!);
       emit(LoginState.success(loginResponse));
     }, failure: (error) {
       emit(LoginState.error(error: error.apiErrorModel.message ?? ''));

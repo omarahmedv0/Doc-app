@@ -1,3 +1,4 @@
+import 'package:advanced_course/core/networking/dio_factory.dart';
 import 'package:advanced_course/core/prefs/app_preferences.dart';
 import 'package:advanced_course/features/sign_up/data/repo/signup_repo.dart';
 import 'package:advanced_course/features/sign_up/logic/sign_up_state.dart';
@@ -34,6 +35,8 @@ class SignupCubit extends Cubit<SignupState> {
     );
     response.when(success: (signupResponse) async {
       await appPreferences.saveToken(signupResponse.userData!.token!);
+      await appPreferences.setIsUserLoggedIn(true);
+      DioFactory.reSetUserToken(signupResponse.userData!.token!);
 
       emit(SignupState.signupSuccess(signupResponse));
     }, failure: (error) {

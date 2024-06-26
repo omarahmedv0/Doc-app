@@ -1,3 +1,4 @@
+import 'package:advanced_course/core/helpers/middleware.dart';
 import 'package:advanced_course/core/routing/app_router.dart';
 import 'package:advanced_course/core/routing/routes.dart';
 import 'package:advanced_course/core/theming/theme_manager.dart';
@@ -15,7 +16,7 @@ class DocApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouter.generateRoute,
-        initialRoute: Routes.homeScreen,
+        initialRoute: initialRoute(),
         theme: ThemeManager.defaultTheme(),
       ),
     );
