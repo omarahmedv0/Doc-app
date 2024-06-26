@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.amber,
+    statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
   ));
   await setupGetIt();
