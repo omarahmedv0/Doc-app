@@ -1,4 +1,5 @@
 import 'package:advanced_course/core/assets_manager/assets_manager.dart';
+import 'package:advanced_course/features/home/data/models/specialization_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/spacing.dart';
@@ -6,10 +7,11 @@ import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/styles.dart';
 
 class DoctorsListItem extends StatelessWidget {
-  const DoctorsListItem({
+   DoctorsListItem({
     super.key,
+    required this.doctors
   });
-
+  Doctors? doctors;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,18 +38,18 @@ class DoctorsListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Omar Ahmed',
+                doctors?.name??  'Omar Ahmed',
                   style: TextStyles.font18DarkBlueBold,
                   overflow: TextOverflow.ellipsis,
                 ),
                 verticalSpace(5),
                 Text(
-                  'Degree | 01275318664',
+                  '${doctors?.degree??""} | ${doctors?.phone??""}',
                   style: TextStyles.font12GrayMedium,
                 ),
                 verticalSpace(5),
                 Text(
-                  'Email@gmail.com',
+                  doctors?.email??'omar@example.com',
                   style: TextStyles.font12GrayMedium,
                 ),
               ],

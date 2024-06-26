@@ -1,10 +1,12 @@
-abstract class ApiEndPoints{
+abstract class ApiEndPoints {
   static const String baseUrl = "https://vcare.integration25.com/api";
   static const String login = "$baseUrl/auth/login";
   static const String signup = "$baseUrl/auth/register";
+  static const String specialization = "$baseUrl/specialization/index";
 
+}
 
-}class ApiErrors {
+class ApiErrors {
   static const String badRequestError = "badRequestError";
   static const String noContent = "noContent";
   static const String forbiddenError = "forbiddenError";

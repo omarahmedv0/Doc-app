@@ -1,5 +1,6 @@
 import 'package:advanced_course/core/di/dependency_injection.dart';
 import 'package:advanced_course/core/routing/routes.dart';
+import 'package:advanced_course/features/home/logic/home_cubit.dart';
 import 'package:advanced_course/features/home/ui/home_screen.dart';
 import 'package:advanced_course/features/login/logic/cubit/login_cubit.dart';
 import 'package:advanced_course/features/login/ui/login_screen.dart';
@@ -14,7 +15,7 @@ Map<String, Widget Function(BuildContext)> appRouter = {
 };
 
 class AppRouter {
-  Route generateRoute(RouteSettings settings) {
+  Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onBoarding:
         return MaterialPageRoute(
@@ -24,7 +25,7 @@ class AppRouter {
       case Routes.loginScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => LoginCubit(getIt.get()),
+            create: (context) => LoginCubit(getIt.get(), getIt.get()),
             child: const LoginScreen(),
           ),
         );
@@ -37,12 +38,13 @@ class AppRouter {
         );
       case Routes.homeScreen:
         return MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => HomeCubit(getIt.get())..getSpecializations(),
+            child: const HomeScreen(),
+          ),
         );
       default:
-        return MaterialPageRoute(
-          builder: (context) => const OnboardingScreen(),
-        );
+        return null;
     }
   }
 }
