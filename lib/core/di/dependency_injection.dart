@@ -15,16 +15,17 @@ import '../../features/login/logic/cubit/login_cubit.dart';
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
-  // Dio & ApiService
-  Dio dio = DioFactory.getDio();
-  getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
+
   final SharedPreferences preferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton(() => preferences);
   getIt.registerLazySingleton<AppPreferences>(
     () => AppPreferences(preferences),
   );
 
+  // Dio & ApiService
+  Dio dio = DioFactory.getDio();
 
+  getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
   // login
   getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt(),getIt.get()));

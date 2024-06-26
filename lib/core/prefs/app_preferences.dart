@@ -8,8 +8,8 @@ class AppPreferences {
   AppPreferences(this._sharedPreferences);
   final SharedPreferences _sharedPreferences;
 
-  String getToken()  {
-    return _sharedPreferences.getString(PrefsKeys.prefsKeyToken)??"";
+  String getToken() {
+    return _sharedPreferences.getString(PrefsKeys.prefsKeyToken) ?? "";
   }
 
   Future<void> saveToken(String token) async {

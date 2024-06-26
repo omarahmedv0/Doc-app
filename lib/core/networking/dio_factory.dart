@@ -19,6 +19,7 @@ class DioFactory {
       dio?.options.headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${getIt<AppPreferences>().getToken()}'
       };
 
       addDioInterceptor();
@@ -26,6 +27,14 @@ class DioFactory {
     } else {
       return dio!;
     }
+  }
+
+  static void reSetUserToken(String token) {
+    dio?.options.headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
   }
 
   static void addDioInterceptor() {
