@@ -15,7 +15,7 @@ class DocApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouter.generateRoute,
-        initialRoute: Routes.onBoarding,
+        initialRoute: Routes.homeScreen,
         theme: ThemeManager.defaultTheme(),
       ),
     );

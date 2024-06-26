@@ -1,3 +1,10 @@
+import 'package:advanced_course/core/helpers/spacing.dart';
+import 'package:advanced_course/core/theming/colors.dart';
+import 'package:advanced_course/features/home/ui/widgets/doctor_blue_card.dart';
+import 'package:advanced_course/features/home/ui/widgets/doctors_list.dart';
+import 'package:advanced_course/features/home/ui/widgets/doctors_speciality_see_all.dart';
+import 'package:advanced_course/features/home/ui/widgets/home_top_bar.dart';
+import 'package:advanced_course/features/home/ui/widgets/specializations_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,7 +14,30 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(),
+        backgroundColor: Colors.white,
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(
+            20,
+            16,
+            20,
+            28,
+          ),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HomeTopBar(),
+              const DoctorBlueCard(),
+              verticalSpace(24),
+              const DoctorsSpecialitySeeAll(),
+              verticalSpace(18),
+              const SpecializationsList(),
+              verticalSpace(8),
+              const DoctorsList(),
+            ],
+          ),
+        ),
       ),
     );
   }
