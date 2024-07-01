@@ -29,7 +29,7 @@ class LoginCubit extends Cubit<LoginState> {
       await appPreferences.saveToken(loginResponse.userData!.token!);
       await appPreferences.setIsUserLoggedIn(true);
 
-      DioFactory.reSetUserToken(loginResponse.userData!.token!);
+      DioFactory.setTokenIntoHeaderAfterLogin(loginResponse.userData!.token!);
       emit(LoginState.success(loginResponse));
     }, failure: (error) {
       emit(LoginState.error(error: error.apiErrorModel.message ?? ''));

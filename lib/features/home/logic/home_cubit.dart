@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:advanced_course/core/helpers/extensions.dart';
 import 'package:advanced_course/core/networking/error_handling.dart';
 import 'package:advanced_course/features/home/data/models/specialization_response_model.dart';
@@ -38,6 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
         getDoctorsListBySpecializationId(specializationId);
 
     if (!doctorsList.isNullOrEmpty()) {
+      log(doctorsList!.first!.email.toString());
       emit(HomeState.doctorsSuccess(doctorsList));
     } else {
       emit(HomeState.doctorsError(ErrorHandler.handle('No doctors found')));
@@ -50,5 +53,4 @@ class HomeCubit extends Cubit<HomeState> {
         ?.firstWhere((specialization) => specialization?.id == specializationId)
         ?.doctorsList;
   }
-
 }
