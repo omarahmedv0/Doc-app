@@ -9,28 +9,52 @@ import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/styles.dart';
 
 class SpecialityListViewItem extends StatelessWidget {
-   SpecialityListViewItem({
+  SpecialityListViewItem({
     super.key,
-    required this.specializationsData
+    required this.specializationsData,
+    required this.selectedIndex,
+    required this.currentItemIndex,
   });
   SpecializationsData? specializationsData;
+  int? selectedIndex;
+  int? currentItemIndex;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 28,
-          backgroundColor: ColorsManager.lightBlue,
-          child: SvgPicture.asset(
-            SVGsManager.generalSpeciality,
-            height: 40.h,
-            width: 40.w,
-          ),
-        ),
+        currentItemIndex == selectedIndex
+            ? Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: ColorsManager.darkBlue,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundColor: ColorsManager.lightBlue,
+                  child: SvgPicture.asset(
+                    SVGsManager.generalSpeciality,
+                    height: 42.h,
+                    width: 42.w,
+                  ),
+                ),
+              )
+            : CircleAvatar(
+                radius: 28,
+                backgroundColor: ColorsManager.lightBlue,
+                child: SvgPicture.asset(
+                  SVGsManager.generalSpeciality,
+                  height: 40.h,
+                  width: 40.w,
+                ),
+              ),
         verticalSpace(8),
         Text(
-         specializationsData?.name??"",
-          style: TextStyles.font12DarkBlueRegular,
+          specializationsData?.name ?? 'Specialization',
+          style: currentItemIndex == selectedIndex
+              ? TextStyles.font14DarkBlueBold
+              : TextStyles.font12DarkBlueRegular,
         ),
       ],
     );

@@ -11,12 +11,12 @@ class AppPreferences {
   final SharedPreferences _sharedPreferences;
   final FlutterSecureStorage secureStorage;
 
-  Future<String> getToken() async {
-    return await secureStorage.read(key: PrefsKeys.prefsKeyToken) ?? "";
+  String getToken()  {
+    return _sharedPreferences.getString( PrefsKeys.prefsKeyToken)??"";
   }
 
   Future<void> saveToken(String token) async {
-    await secureStorage.write(key: PrefsKeys.prefsKeyToken, value: token);
+    await _sharedPreferences.setString( PrefsKeys.prefsKeyToken, token);
   }
 
   Future<void>setIsUserLoggedIn(bool value) async {
